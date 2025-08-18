@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from config import settings
-from utils import log
+from src.config import settings
+
 
 def get_embedder() -> GoogleGenerativeAIEmbeddings:
     """

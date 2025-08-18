@@ -8,10 +8,10 @@ from langchain_community.document_loaders import PyPDFLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
 
-from config import settings
-from utils import log
+from src.config import settings
+from src.utils import log
 
-# extensões de arquivo que vai ser aceito na primeira versão
+# extensões de arquivo que vai ser aceito 
 SUPPORTED_EXTS = {".pdf", ".txt", ".md"}
 
 def _iter_files(base_dir: Path, include_subdirs: bool = True) -> Iterable[Path]:
@@ -46,7 +46,7 @@ def load_documents_from_dir(base_dir: Path, include_subdirs: bool = True) -> Lis
             if ext == ".pdf":
                 loader = PyPDFLoader(str(file_path))
                 file_docs = loader.load()
-            else:  # ".txt" ou ".md" -> tratamos como texto puro
+            else:  
                 loader = TextLoader(str(file_path), encoding="utf-8", autodetect_encoding=True)
                 file_docs = loader.load()
 
@@ -82,7 +82,7 @@ def chunk_documents(
     )
     chunks = splitter.split_documents(docs)
 
-    # índice sequencial (útil para debug e rastreio)
+    # índice sequencial 
     for i, c in enumerate(chunks):
         c.metadata = c.metadata or {}
         c.metadata.setdefault("chunk_index", i)

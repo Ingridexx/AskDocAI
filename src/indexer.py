@@ -7,10 +7,10 @@ from typing import List
 from langchain_community.vectorstores import FAISS
 from langchain.schema import Document
 
-from config import settings
-from utils import log, ensure_dir, timed
-from ingest import load_documents_from_dir, chunk_documents
-from embed import get_embedder  
+from src.config import settings
+from src.utils import log, ensure_dir, timed
+from src.ingest import load_documents_from_dir, chunk_documents
+from src.embed import get_embedder 
 
 @timed
 def build_faiss_index(

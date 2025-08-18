@@ -7,7 +7,7 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path=Path(".env"))
+load_dotenv(Path(".env"))
 
 @dataclass(frozen=True)
 class Settings:
@@ -25,6 +25,8 @@ class Settings:
     # Caminhos
     data_dir: Path
     index_dir: Path
+    data_base: Path
+    index_base: Path
 
     @staticmethod
     def from_env() -> "Settings":
@@ -48,9 +50,15 @@ class Settings:
         data_dir = Path(os.getenv("DATA_DIR", "./data")).resolve()
         index_dir = Path(os.getenv("INDEX_DIR", "./faiss_index")).resolve()
         
+        data_base = Path(os.getenv("DATA_BASE") or "./data").resolve()
+        index_base = Path(os.getenv("INDEX_BASE") or (Path(str(index_dir)).parent / "indices")).resolve()
+        
         # garante pastas existentes
         data_dir.mkdir(parents=True, exist_ok=True)
         index_dir.mkdir(parents=True, exist_ok=True)
+        
+        data_base.mkdir(parents=True, exist_ok=True)
+        index_base.mkdir(parents=True, exist_ok=True)
         
         return Settings(
             google_api_key=google_api_key,
@@ -60,6 +68,8 @@ class Settings:
             chunk_overlap=chunk_overlap,
             data_dir=data_dir,
             index_dir=index_dir,
+            data_base=data_base,
+            index_base=index_base,
         )
     
 # Instância global pronta para uso
