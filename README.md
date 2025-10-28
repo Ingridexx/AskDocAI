@@ -1,4 +1,4 @@
-# CompareDocAI
+# AskDocAI
 # Guia da Ferramenta
 
 ## Instalação
